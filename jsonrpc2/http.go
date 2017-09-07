@@ -133,7 +133,7 @@ func (conn *httpClientConn) Write(buf []byte) (int, error) {
             resp, err = conn.doer.Do(req)
             const maxBodySlurpSize = 32 * 1024
             if err != nil {
-            } else if !resp.Header.Get("Content-Type") || !strings.Contains(resp.Header.Get("Content-Type"), "json")  {
+            } else if strings.Contains(resp.Header.Get("Content-Type"), "json") == false  {
                 err = fmt.Errorf("bad HTTP Content-Type: %s", resp.Header.Get("Content-Type"))
             } else if resp.StatusCode == http.StatusOK {
                 conn.ready <- resp.Body
